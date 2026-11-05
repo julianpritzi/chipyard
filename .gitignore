@@ -31,3 +31,5 @@ project/project/
 .vscode/
 tests/build/
 conda-reqs/chipyard-base.yaml.bak
+.conda-base/
+.nix-setup-done

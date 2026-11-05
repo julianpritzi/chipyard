@@ -13,6 +13,18 @@
 
 To get started using Chipyard, see the documentation on the Chipyard documentation site: https://chipyard.readthedocs.io/
 
+### With Nix
+
+With [Nix](https://nixos.org/download) (flakes enabled) on x86_64 Linux, one command sets up and enters the same environment on every machine, NixOS included:
+
+```bash
+nix develop   # the first time, this runs ./build-setup.sh (~30 min); after that it takes seconds
+```
+
+This replaces the conda and `./build-setup.sh` steps of the docs, including every `conda activate` and `source ./env.sh`: in a new terminal, run `nix develop` instead. Everything else in the docs applies unchanged.
+Optional generators, FireSim and FireMarshal are chosen in `build-setup.conf`.
+For scripts, `nix run . -- <command>` runs a command in the same environment.
+
 ## What is Chipyard
 
 Chipyard is an open source framework for agile development of Chisel-based systems-on-chip.

@@ -219,7 +219,7 @@ conda environment or \`source env.sh\` and skip this step with \`-s 1\`." >&2
     elif [ "$(printf '%s\n' "$SYSROOT_GLIBC" 2.33 | sort -V | head -n 1)" != 2.33 ]; then
         echo "WARNING: Selected sysroot $SYSROOT_GLIBC is below glibc 2.33 required by VCS."
     fi
-    if [ -n "$SYSROOT_GLIBC" ] && [ "$SYSROOT_GLIBC" != "$DEFAULT_GLIBC" ]; then
+    if [ -n "$SYSROOT_GLIBC" ] && [ "$SYSROOT_GLIBC" != "$DEFAULT_GLIBC" ] && [ -z "$CY_KEEP_LOCKFILE" ]; then
         sed -i "s/^\([[:space:]]*-[[:space:]]*sysroot_linux-64=\)[0-9.]*/\1$SYSROOT_GLIBC/" "$CONDA_REQS/chipyard-base.yaml"
         $CYDIR/scripts/generate-conda-lockfiles.sh
         exit_if_last_command_failed
