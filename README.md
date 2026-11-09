@@ -25,6 +25,16 @@ This replaces the conda and `./build-setup.sh` steps of the docs, including ever
 Optional generators, FireSim and FireMarshal are chosen in `build-setup.conf`.
 For scripts, `nix run . -- <command>` runs a command in the same environment.
 
+#### VS Code
+
+After the first `nix develop`, VS Code's terminals open in the same environment: the setup writes `.vscode/settings.json` for that (untracked, so edit it freely).
+
+For Scala support, install the [Metals](https://scalameta.org/metals/docs/editors/vscode) extension. It runs outside the Nix environment and needs JDK 17, because chipyard's sbt and Scala versions don't work with newer JDKs:
+
+1. Install JDK 17 once: `nix profile install nixpkgs#jdk17`.
+2. In your VS Code *user* settings (it is ignored in workspace settings), set `"metals.metalsJavaHome": "/home/<you>/.nix-profile/lib/openjdk"`.
+3. Open the chipyard folder and run `Metals: Import build`. The first import and compile take a few minutes; warnings about old sbt and Scala versions are expected.
+
 ## What is Chipyard
 
 Chipyard is an open source framework for agile development of Chisel-based systems-on-chip.
