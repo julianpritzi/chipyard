@@ -53,8 +53,10 @@ elif [ "$(cat "$cy/.nix-setup-done" 2>/dev/null)" != "$stamp" ]; then
   // Written by scripts/nix-shell.sh after chipyard's setup; not tracked by git, so edit freely
   // (or delete it, e.g. after moving the checkout, to have it written again on the next setup).
   // VS Code terminals open in chipyard's Nix shell, without ever running the setup themselves.
+  // The profile's path is sh, not nix: extensions take it, without the args, as the user's shell.
+  // (/bin/sh, not bash: it's the only shell at a fixed path on every distribution, NixOS included.)
   "terminal.integrated.profiles.linux": {
-    "chipyard": { "path": "$(command -v nix || echo nix)", "args": ["run", "--no-warn-dirty", "$cy"], "env": { "CY_NO_SETUP": "1" } }
+    "chipyard": { "path": "/bin/sh", "args": ["-c", "exec \"\$0\" run --no-warn-dirty \"\$1\"", "$(command -v nix || echo nix)", "$cy"], "env": { "CY_NO_SETUP": "1" } }
   },
   "terminal.integrated.defaultProfile.linux": "chipyard",
   // the conda installations hold most of the checkout's directories, too many to watch
